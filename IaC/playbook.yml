@@ -1,6 +1,0 @@
--
-  name: start
-  hosts: localhost
-  tasks:
-    - name: Execute script to install app
-      script: install-script.sh
