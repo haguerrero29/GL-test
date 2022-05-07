@@ -3,7 +3,7 @@ resource "aws_alb" "gl_timeoff_alb" {
   subnets            = var.vpc_subnets_id
   security_groups    = [var.security_group]
 
-  enable_deletion_protection = true
+  enable_deletion_protection = false
   drop_invalid_header_fields = true
 
 
@@ -30,11 +30,23 @@ resource "aws_alb_target_group" "gl_timeoff_tg" {
   }
 }
 
+resource "aws_lb_target_group_attachment" "gl_timeoff_tg_add" {
+  target_group_arn = aws_alb_target_group.gl_timeoff_tg.arn
+  target_id        = var.server_id
+  port             = 80
+}
+
 resource "aws_alb_listener" "gl_timeoff_http_listener" {
   load_balancer_arn = aws_alb.gl_timeoff_alb.arn
   port = 80
   protocol = "HTTP"
+
   default_action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.gl_timeoff_tg.arn
+  }
+
+  /*default_action {
     type = "redirect"
 
     redirect {
@@ -42,10 +54,10 @@ resource "aws_alb_listener" "gl_timeoff_http_listener" {
       protocol = "HTTPS"
       status_code = "HTTP_301"
     }
-  }
+  }*/
 }
 
-resource "aws_alb_listener" "gl_timeoff_https_listener" {
+/*resource "aws_alb_listener" "gl_timeoff_https_listener" {
   load_balancer_arn = aws_alb.gl_timeoff_alb.arn
   port              = "443"
   protocol          = "HTTPS"
@@ -56,4 +68,4 @@ resource "aws_alb_listener" "gl_timeoff_https_listener" {
     type             = "forward"
     target_group_arn = aws_alb_target_group.gl_timeoff_tg.arn
   }
-}
+}*/
