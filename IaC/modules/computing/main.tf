@@ -3,7 +3,7 @@ data "template_file" "user_data" {
 }
 
 resource "aws_instance" "gl_timeoff_server" {
-  ami               = "ami-0c4f7023847b90238"
+  ami               = "ami-09d56f8956ab235b3"
   instance_type     = "t2.micro"
   key_name          = "bastion-pass"
   security_groups   = [var.gl_timeoff_http_sg]
