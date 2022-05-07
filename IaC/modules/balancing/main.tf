@@ -14,10 +14,10 @@ resource "aws_alb" "gl_timeoff_alb" {
 
 resource "aws_alb_target_group" "gl_timeoff_tg" {
   name        = "gl-timeoff-tg"
-  port        = 80
+  port        = 3000
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
-  target_type = "ip"
+  target_type = "instance"
 
   health_check {
     healthy_threshold   = "3"

@@ -22,7 +22,7 @@ module "networking" {
 
 module "computing" {
   source              = "./modules/computing"
-  vpc_subnets_id      = module.networking.gl_timeoff_vpc_id
+  vpc_subnets_id      = module.networking.gl_timeoff_subnet1_id
   gl_timeoff_http_sg  = module.networking.gl_timeoff_http_sg
 }
 
@@ -32,4 +32,6 @@ module "balancing" {
   vpc_subnets_id    = module.networking.vpc_subnets_id
   security_group    = module.networking.gl_timeoff_http_sg
   server_id         = module.computing.server_id
+
+  depends_on = [module.computing]
 }
