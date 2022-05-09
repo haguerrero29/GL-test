@@ -12,15 +12,17 @@ Repository Structure:
 Infrastructure Management
 
 Infrastructure currently deployed on AWS. All the services are managed with terraform code.
+
 Configured services:
-  -VPC
+
+  - VPC
   
-  -Application load balancer
+  - Application load balancer
   
-  -Security groups
+  - Security groups
   
-  -Internet gateway
+  - Internet gateway
   
-  -EC2 Autocalling
+  - EC2 Autocalling
   
-  -EC2 Instance
+  - EC2 Instance
