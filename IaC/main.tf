@@ -19,19 +19,27 @@ module "networking" {
   gl_timeoff_pu_cidr    = var.gl_timeoff_pu_cidr
   gl_timeoff_pu2_cidr   = var.gl_timeoff_pu2_cidr
 }
-
+/*
 module "computing" {
   source              = "./modules/computing"
   vpc_subnets_id      = module.networking.gl_timeoff_subnet1_id
   gl_timeoff_http_sg  = module.networking.gl_timeoff_http_sg
 }
+*/
 
 module "balancing" {
   source            = "./modules/balancing"
   vpc_id            = module.networking.gl_timeoff_vpc_id
   vpc_subnets_id    = module.networking.vpc_subnets_id
   security_group    = module.networking.gl_timeoff_http_sg
-  server_id         = module.computing.server_id
+  //server_id         = module.computing.server_id
 
-  depends_on = [module.computing]
+  //depends_on = [module.computing]
+}
+
+module "autoscaling" {
+  source = "./modules/autoscaling"
+  security_groups = module.networking.security_groups
+  public_subnets = module.networking.vpc_subnets_id
+  target_group_arn = module.balancing.target_group_arn
 }

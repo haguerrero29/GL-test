@@ -14,7 +14,7 @@ resource "aws_alb" "gl_timeoff_alb" {
 
 resource "aws_alb_target_group" "gl_timeoff_tg" {
   name        = "gl-timeoff-tg"
-  port        = 80
+  port        = 3000
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "instance"
@@ -29,12 +29,13 @@ resource "aws_alb_target_group" "gl_timeoff_tg" {
     unhealthy_threshold = "4"
   }
 }
-
+/*
 resource "aws_lb_target_group_attachment" "gl_timeoff_tg_add" {
   target_group_arn = aws_alb_target_group.gl_timeoff_tg.arn
   target_id        = var.server_id
   port             = 3000
 }
+*/
 
 resource "aws_alb_listener" "gl_timeoff_http_listener" {
   load_balancer_arn = aws_alb.gl_timeoff_alb.arn
