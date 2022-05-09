@@ -14,8 +14,13 @@ Infrastructure Management
 Infrastructure currently deployed on AWS. All the services are managed with terraform code.
 Configured services:
   -VPC
+  
   -Application load balancer
+  
   -Security groups
+  
   -Internet gateway
+  
   -EC2 Autocalling
+  
   -EC2 Instance
