@@ -1,11 +1,10 @@
 data "template_file" "user_data" {
-  template = filebase64("./modules/computing/instalation.sh")
+  template = filebase64("./modules/autoscaling/instalation.sh")
 }
 
 resource "aws_launch_template" "gl_timeoff_as_template" {
   name_prefix             = "gl-timeoff-as-template"
   image_id                = "ami-09d29f8bc98e7dbf4"
-  //vpc_security_group_ids  = var.security_groups
   instance_type           = "t2.micro"
   key_name                = "bastion-pass"
   user_data               = "${data.template_file.user_data.rendered}"
@@ -13,12 +12,18 @@ resource "aws_launch_template" "gl_timeoff_as_template" {
     associate_public_ip_address   = "true"
     security_groups = var.security_groups
   }
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "GL-TimeOff-Server"
+    }
+  }
 
 }
 
 resource "aws_autoscaling_group" "gl_timeoff_asg" {
   desired_capacity      = 1
-  max_size              = 2
+  max_size              = 3
   min_size              = 1
   vpc_zone_identifier   = var.public_subnets
   name                  = "GL-TimeOff-ASG"

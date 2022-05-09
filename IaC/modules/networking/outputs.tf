@@ -19,5 +19,5 @@ output "gl_timeoff_subnet2_id" {
 }
 
 output "security_groups" {
-  value = [aws_security_group.gl_timeoff_http_sg.id, aws_security_group.test_sg.id]
+  value = [aws_security_group.gl_timeoff_http_sg.id]
 }
