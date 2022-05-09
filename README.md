@@ -36,4 +36,4 @@ For the master branch a webhook was configured which triggers the jenkins pipeli
 To push new changes, copy the repository then make your changes to the master branch and push them. Within 8 min you will see the changes reflected on the server.
 
 
-To watch the App open gl-timeoff-alb-292200254.us-east-1.elb.amazonaws.com in your browser
+To watch the App open http://gl-timeoff-alb-292200254.us-east-1.elb.amazonaws.com in your browser
